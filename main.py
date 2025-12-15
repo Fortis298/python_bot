@@ -6,12 +6,12 @@ bot = telebot.TeleBot(os.getenv('BOT_TOKEN'))
 
 @bot.message_handler(commands=['start'])
 def main(message):
-        bot.send_message(message.chat.id, 'Привет! Я бот для конвертации валют.\nИспользуй команду /help чт\
+        bot.send_message(message.chat.id, '💰 Привет! Я бот для конвертации валют.\nИспользуй команду /help чт\
 обы увидеть инструкции.')
 
 @bot.message_handler(commands=['help'])
 def help(message):
-        help_text = """💰 *Как использовать бота:*
+        help_text = """📖 *Как использовать бота:*
 
 *Формат запроса:* `XXXYYY сумма`
 
