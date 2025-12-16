@@ -20,10 +20,23 @@ def help(message):
 *Команды:*
 /start - Начать работу с ботом
 /help - Показать эту справку
+/currencies - Все валюты
 
 *Примечание:* Первые три буквы - исходная валюта, последние три - целевая валюта. RUB всегда должен быть ук\
 азан."""
         bot.send_message(message.chat.id, help_text, parse_mode='Markdown')
+
+
+@bot.message_handler(commands=['currencies'])
+def currencies(message):
+        try:
+                response = requests.get('https://www.cbr-xml-daily.ru/daily_json.js').json()['Valute']
+        except Exception:
+                bot.send_message(message.chat.id, 'Ошибка: не удалось получить данные о курсах валют')
+                return
+                
+        list_currencies = "Все доспупные валюты:\n" + "\n".join([f"{key} – {value['Name']}" for key, value in response.items()])
+        bot.send_message(message.chat.id, list_currencies)
 
 
 @bot.message_handler()
