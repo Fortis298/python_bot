@@ -10,9 +10,6 @@ app = Flask(__name__)
 
 WEBHOOK_URL = f"https://python-bot-6fjm.onrender.com/webhook/{BOT_TOKEN}"
 
-bot.remove_webhook()
-bot.set_webhook(url=WEBHOOK_URL)
-
 @app.route(f'/webhook/{BOT_TOKEN}', methods=['POST'])
 def webhook():
     json_string = request.get_data().decode('utf-8')
@@ -82,6 +79,7 @@ def calc(message):
                 bot.send_message(message.chat.id, f"Ошибка: формат должен быть XXXYYY сумма")
 
 
-    
-
+if __name__ == "__main__":
+    bot.remove_webhook()
+    bot.set_webhook(url=WEBHOOK_URL)
     
