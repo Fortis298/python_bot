@@ -31,6 +31,7 @@ def help(message):
 def currencies(message):
         try:
                 response = requests.get('https://www.cbr-xml-daily.ru/daily_json.js').json()['Valute']
+                response['WEB'] = {'CharCode': 'WEB', 'Value': 0.06, 'Nominal': 1, 'Name': 'Веб-коин'}
         except Exception:
                 bot.send_message(message.chat.id, 'Ошибка: не удалось получить данные о курсах валют')
                 return
