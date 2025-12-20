@@ -8,7 +8,7 @@ BOT_TOKEN = os.getenv('BOT_TOKEN')
 bot = telebot.TeleBot(BOT_TOKEN)
 app = Flask(__name__)
 
-WEBHOOK_URL = f"https://pythonbot-production-c0b1.up.railway.app/webhook/{BOT_TOKEN}"
+WEBHOOK_URL = f"https://python-bot-6fjm.onrender.com/webhook/{BOT_TOKEN}"
 
 
 @app.route(f'/webhook/{BOT_TOKEN}', methods=['POST'])
