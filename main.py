@@ -5,7 +5,7 @@ import os
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
-bot = telebot.TeleBot(BOT_TOKEN)
+bot = telebot.TeleBot(BOT_TOKEN, threaded=False)
 app = Flask(__name__)
 
 WEBHOOK_URL = f"https://python-bot-6fjm.onrender.com/webhook/{BOT_TOKEN}"
