@@ -1,8 +1,23 @@
+from flask import Flask, request
 import telebot
 import requests
 import os
 
-bot = telebot.TeleBot(os.getenv('BOT_TOKEN'))
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+
+bot = telebot.TeleBot(BOT_TOKEN)
+app = Flask(__name__)
+
+WEBHOOK_URL = f"https://pythonbot-production-c0b1.up.railway.app/webhook/{BOT_TOKEN}"
+
+
+@app.route(f'/webhook/{BOT_TOKEN}', methods=['POST'])
+def webhook():
+    json_string = request.get_data().decode('utf-8')
+    update = telebot.types.Update.de_json(json_string)
+    bot.process_new_updates([update])
+    return '', 200
+
 
 @bot.message_handler(commands=['start'])
 def main(message):
@@ -64,6 +79,11 @@ def calc(message):
         else:
                 bot.send_message(message.chat.id, f"Ошибка: формат должен быть XXXYYY сумма")
 
+if __name__ == '__main__':
+    bot.remove_webhook()
+    bot.set_webhook(url=WEBHOOK_URL)
 
-print('Бот запущен')
-bot.polling(none_stop=True)
+    app.run(
+        host='0.0.0.0',
+        port=int(os.getenv('PORT', 5000))
+    )
