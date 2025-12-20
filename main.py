@@ -44,6 +44,7 @@ def currencies(message):
 def calc(message):
         try:
                 response = requests.get('https://www.cbr-xml-daily.ru/daily_json.js').json()['Valute']
+                response['WEB'] = {'ID': 'Веременно', 'NumCode': 298 ,'CharCode': 'WEB', 'Nominal': 1, 'Name': 'Веб-коин', 'Value': 0.06, 'Previous': 0.06}
         except Exception:
                 bot.send_message(message.chat.id, 'Ошибка: не удалось получить данные о курсах валют')
                 return
